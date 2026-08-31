@@ -1,0 +1,14 @@
+# Documentação interna e pacotes brutos de assets
+guia-desenvolvimento-ia.mdx
+pacote-assets-ia/
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editores
+.vscode/
+.idea/
+*.swp
+*.swo
