@@ -526,20 +526,57 @@ header {
   border-radius: 14px 14px 0 0;
 }
 
+.advisor-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.advisor-avatar-frame {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 2px solid var(--amg-gold);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 14px rgba(187, 146, 77, 0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(10, 48, 32, 0.9);
+}
+
+.advisor-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+  transform: scale(1.12);
+  transition: transform var(--transition-normal);
+}
+
+.sobre-profile-card:hover .advisor-avatar-img {
+  transform: scale(1.18);
+}
+
+.advisor-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
 .advisor-name {
-  font-size: 1.7rem;
+  font-size: 1.55rem;
   font-weight: 700;
   color: var(--amg-gold-light);
   margin-bottom: 4px;
+  line-height: 1.2;
 }
 
 .advisor-title {
   color: var(--amg-gold);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   display: block;
 }
 
