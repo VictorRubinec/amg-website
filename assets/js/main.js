@@ -116,7 +116,7 @@ function initActiveNavOnScroll() {
 }
 
 /* ----------------------------------------------------
-   4. VALIDAÇÃO E ENVIO DO FORMULÁRIO DE CONTATO
+   4. VALIDAÇÃO E DISPARO VIA CLIENTE DE E-MAIL (OUTLOOK/MAILTO)
    ---------------------------------------------------- */
 function initContactForm() {
   const form = document.getElementById('advisor-contact-form');
@@ -131,6 +131,8 @@ function initContactForm() {
     const nome = form.querySelector('#nome').value.trim();
     const email = form.querySelector('#email').value.trim();
     const telefone = form.querySelector('#telefone').value.trim();
+    const mensagemEl = form.querySelector('#mensagem');
+    const mensagem = mensagemEl ? mensagemEl.value.trim() : '';
 
     // Validação dos campos obrigatórios
     if (!nome || !email || !telefone) {
@@ -146,21 +148,28 @@ function initContactForm() {
       return;
     }
 
-    // Feedback de envio
+    // Feedback visual
     submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Enviando mensagem...';
+    submitBtn.innerHTML = 'Abrindo programa de e-mail...';
+
+    // Montar parâmetros formatados para o cliente de e-mail (Outlook, Apple Mail, etc.)
+    const recipient = 'alexandre.giglio@amgcg.com.br';
+    const subject = encodeURIComponent(`Contato AMG Consulting Group — ${nome}`);
+    const bodyContent = `Nome: ${nome}\nE-mail: ${email}\nTelefone / WhatsApp: ${telefone}\n\nMensagem:\n${mensagem || 'Gostaria de agendar uma consulta sobre planejamento patrimonial e consultoria estratégica.'}`;
+    const body = encodeURIComponent(bodyContent);
+
+    const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+    feedback.className = 'form-feedback success';
+    feedback.innerHTML = `<strong>Abrindo seu aplicativo de e-mail (Outlook / Mail).</strong><br>Caso seu aplicativo não abra automaticamente, <a href="${mailtoUrl}" style="color: var(--amg-gold); text-decoration: underline; font-weight: 600;">clique aqui para enviar diretamente</a>.`;
+
+    // Disparo para o aplicativo de e-mail
+    window.location.href = mailtoUrl;
 
     setTimeout(() => {
-      feedback.className = 'form-feedback success';
-      feedback.innerHTML = `<strong>Agradecemos seu contato, ${nome}.</strong><br>Sua mensagem foi enviada ao Sr. Alexandre Monteiro Giglio. Retornaremos em breve com total discrição.`;
-      form.reset();
       submitBtn.disabled = false;
-      submitBtn.innerHTML = 'Mensagem Enviada com Sucesso';
-
-      setTimeout(() => {
-        submitBtn.innerHTML = 'Enviar Mensagem ao Advisor';
-      }, 5000);
-    }, 800);
+      submitBtn.innerHTML = 'Enviar Mensagem ao Advisor';
+    }, 4000);
   });
 }
 
